@@ -1,0 +1,44 @@
+<main class="auth-page">
+  <h1>Créer un compte</h1>
+
+  @if (done()) {
+    <p>
+      Compte créé. Vérifie ta boîte mail pour confirmer ton adresse, puis
+      <a routerLink="/login">connecte-toi</a>.
+    </p>
+  } @else {
+    <form (ngSubmit)="onSubmit()">
+      <label>
+        Nom complet
+        <input type="text" name="nomComplet" [(ngModel)]="nomComplet" required />
+      </label>
+
+      <label>
+        Email
+        <input type="email" name="email" [(ngModel)]="email" required autocomplete="email" />
+      </label>
+
+      <label>
+        Mot de passe
+        <input
+          type="password"
+          name="password"
+          [(ngModel)]="password"
+          required
+          minlength="8"
+          autocomplete="new-password"
+        />
+      </label>
+
+      @if (error()) {
+        <p class="error" role="alert">{{ error() }}</p>
+      }
+
+      <button type="submit" [disabled]="loading()">
+        {{ loading() ? "Création..." : "Créer mon compte" }}
+      </button>
+    </form>
+
+    <p>Déjà un compte ? <a routerLink="/login">Se connecter</a></p>
+  }
+</main>
